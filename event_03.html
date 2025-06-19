@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Events: Task 3</title>
+    <style>
+      p {
+        color: purple;
+        margin: 0.5em 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      button {
+        display: block;
+        margin: 20px 0 20px 20px;
+      }
+
+      .button-bar {
+        padding: 20px 0;
+      }
+    </style>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+
+  <body>
+
+    <section class="preview">
+            <input type="button" value="Click me" id="elem">
+    </section>
+
+    <div class="button-bar">
+      <button data-color="red">Red</button>
+      <button data-color="yellow">Yellow</button>
+      <button data-color="green">Green</button>
+      <button data-color="purple">Purple</button>
+    </div>
+
+  <script>
+
+  const buttonBar = document.querySelector('.button-bar');
+//   const handleClick = event => {
+//     const color = event.target.dataset.color;
+//     document.querySelector('.button-bar').style.backgroundColor = color;
+//   }
+function handleClick(e) {
+    const color = e.target.dataset.color;
+    document.querySelector('.button-bar').style.backgroundColor = color;
+  }
+  buttonBar.addEventListener("click", handleClick);
+
+  // Add your code here
+
+  
+  elem.onclick = function(e) {
+    // show event type, element and coordinates of the click
+    alert(e.type + " at " + e.currentTarget);
+    alert("Coordinates: " + e.clientX + ":" + e.clientY);
+  };
+
+
+  </script>
+  </body>
+</html>
