@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <ul>
+    <li>Animals
+      <ul>
+        <li>Mammals
+          <ul>
+            <li>Cows</li>
+            <li>Donkeys</li>
+            <li>Dogs</li>
+            <li>Tigers</li>
+          </ul>
+        </li>
+        <li>Other
+          <ul>
+            <li>Snakes</li>
+            <li>Birds</li>
+            <li>Lizards</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Fishes
+      <ul>
+        <li>Aquarium
+          <ul>
+            <li>Guppy</li>
+            <li>Angelfish</li>
+          </ul>
+        </li>
+        <li>Sea
+          <ul>
+            <li>Sea trout</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <script>
+    function getDecendants(nodes) {
+    let obj = {};
+    
+    for(let node of nodes) {
+      if (node.children.length > 0 && node.children[0].tagName === "UL") {
+        console.log(node.firstChild.nodeValue.trim(),node.querySelectorAll("li").length)
+        node.firstChild.nodeValue = `${node.firstChild.nodeValue.trim()} (${node.querySelectorAll("li").length})`
+        // obj[node.firstChild.nodeValue.trim()] = getDecendants(node.children[0].children);
+        getDecendants(node.children[0].children);
+      } else if (node.tagName === 'LI') {
+        // obj[node.firstChild.nodeValue.trim()] = {};
+      }
+    }
+
+    return obj;
+}
+    console.log(getDecendants(document.querySelector('ul').children));
+
+    // getDecendants(document.querySelector('ul').children)
+    
+  </script>
+
+</body>
+</html>
