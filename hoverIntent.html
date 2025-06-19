@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="hoverIntent.js"></script>
+  <!-- <script src="https://en.js.cx/test/libs.js"></script> -->
+  <!-- <script src="test.js"></script> -->
+</head>
+jhkn
+<body>
+
+  <div id="elem" class="clock">
+    <span class="hours">12</span> :
+    <span class="minutes">30</span> :
+    <span class="seconds">00</span>
+  </div>
+
+  <div id="tooltip" hidden>Tooltip</div>
+
+  <script>
+    // a sample tooltip
+    let tooltip = document.createElement('div');
+    tooltip.className = "tooltip";
+    tooltip.innerHTML = "Tooltip";
+
+    // the object will track mouse and call over/out
+    new HoverIntent({
+    elem,
+    over() {
+        tooltip.style.left = elem.getBoundingClientRect().left + 'px';
+        tooltip.style.top = elem.getBoundingClientRect().bottom + 5 + 'px';
+        document.body.append(tooltip);
+    },
+    out() {
+        tooltip.remove();
+    }
+    });
+  </script>
+</body>
+</html>
