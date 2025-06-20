@@ -2,27 +2,56 @@
 
 // 1. Fetch All Products
 
+const url = `https://dummyjson.com/products`
+
 // define the function so that it fetches the data
 export async function fetchAllProducts () {
-
+  const rawdata = await fetch(url)
+  if (!rawdata.ok) return
+  return await rawdata.json().then(result => result)
 }
+
+const { products } = await fetchAllProducts()
 
 // call the function
 
 // then render the results to the screen
 
+products.forEach(renderProduct)
 
 // 2. Fetch Single Product Details
 
 // define the function so that it fetches the data
-export async function fetchProductDetails (id) {
 
+class CustomError extends Error{
+  constructor(message, status) {
+    super(message)
+    this.name = 'CustomError'
+    this.status = status
+  }
 }
+
+export async function fetchProductDetails (id) {
+  try {
+    const rawData = await fetch(`${url}/${id}`)
+    if (!rawData.ok) throw new CustomError(rawData.statusText, rawData.status)
+    return await rawData.json().then(result => result)
+  } catch (error) {
+    return {
+      error: {
+        message: error.message,
+        status: error.status
+      }
+    }
+  }
+}
+
+const product = await fetchProductDetails(2)
 
 // fetch the product with the id of 2
 
 //  then render it to the screen
-
+renderProduct(product)
 
 // 3. Error Handling
 
@@ -31,11 +60,12 @@ export async function fetchProductDetails (id) {
 // test it by a produce with id 9999
 
 // render the error messaage
-
+const errorProd = await fetchProductDetails(99999)
+renderProduct(errorProd)
 
 // There is no need to change the code here
 function renderProduct (product) {
-  console.log(product)
+  // console.log(product)
   const container = document.getElementById('productContainer')
   const newElement = document.createElement('div')
   if (product.error) {
