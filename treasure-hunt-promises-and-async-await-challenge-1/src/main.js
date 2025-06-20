@@ -23,14 +23,28 @@ function renderTreasure (name, container) {
 
 // 1. Treasure Finder
 
-export function findTreasure (treasureName, delay) {
-
+export function findTreasure ({name, delay}) {
+  try {
+    if (!name) throw new Error("Name is not provided")
+    return new Promise(resolve => {
+      setTimeout(() => resolve({name, foundAt: Date.now()}), delay)
+    })    
+  } catch (error) {
+    return new Promise(__, reject => reject(error.message))
+  }
 }
 
 // 2. Sequential Treasure Hunt
 
 export async function sequentialHunt (treasures) {
-
+  let results = []
+  for(let treasure of treasures) {
+    await findTreasure(treasure).then(result => {
+      renderTreasure(result.name, sequentialContainer)
+      results.push(result)
+    })
+  }
+  return results
 }
 
 sequentialHunt(treasures)
@@ -38,7 +52,8 @@ sequentialHunt(treasures)
 // 3. Parallel Treasure Hunt
 
 export async function parallelHunt (treasures) {
-
+    const parallelCalls = treasures.map(treasure => findTreasure(treasure))
+    return await Promise.allSettled(parallelCalls).then(results => results.map(result => result.value))
 }
 
 parallelHunt(treasures).then((foundTreasures) => {
