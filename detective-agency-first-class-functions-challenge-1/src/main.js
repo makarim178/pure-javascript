@@ -3,7 +3,9 @@
 
 // 1. Analyze Evidence
 
-export function analyzeEvidence () {}
+export function analyzeEvidence (evidence, reducer, initialValue) {
+  return evidence.reduce(reducer, initialValue)
+}
 
 const evidence = [
   2,
@@ -17,7 +19,9 @@ console.log(totalEvidence)
 
 // 2. Enhance Investigation Skills
 
-export function createSkillEnhancer () {}
+export function createSkillEnhancer (n) {
+  return x => x * n
+}
 
 const doubleSkill = createSkillEnhancer(2)
 console.log(doubleSkill(5))
@@ -25,7 +29,9 @@ console.log(doubleSkill(5))
 
 // 3. Track Suspect Movements
 
-export function trackMovements () {}
+export function trackMovements (arr, callback) {
+  arr.forEach((location, index) => setTimeout(() => callback(location), index * 200))
+}
 
 const locations = [
   'Park',
@@ -39,7 +45,9 @@ trackMovements(locations, (location) => {
 
 // 4. Combine Investigation Techniques
 
-export function composeTechniques () {}
+export function composeTechniques (...fns) {
+  return arg => fns.reduceRight((acc, fn) => fn(acc), arg)
+}
 
 const addForensics = (x) => x + ' with Forensic Analysis'
 const addInterrogation = (x) => x + ' with Interrogation'
@@ -49,7 +57,9 @@ console.log(combinedTechnique('Investigation'))
 
 // 5. Filter Suspect List
 
-export function filterSuspects () {}
+export function filterSuspects (arr, fn) {
+  return arr.filter(fn)
+}
 
 const suspects = [
   { 'name': 'Alice',
