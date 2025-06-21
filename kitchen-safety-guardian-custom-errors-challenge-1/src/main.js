@@ -1,12 +1,11 @@
 import { renderTemperature, renderIngredient, renderMenu } from './render'
+import { EmptyIngredientError } from './errors/customErrors'
 
 // 1. Temperature Controller
 export function setOvenTemperature (temperature) {
-  if (typeof temperature !== 'number') {
-  }
-  if (temperature < 0 || temperature > 280) {
-  }
-  return 'Temperature set successfully'
+    if (typeof temperature !== 'number') throw new TypeError('Temperature must be a number')
+    if (temperature < 0 || temperature > 280) throw new RangeError('Temperature out of valid range')
+    return 'Temperature set successfully'
 }
 
 
@@ -15,13 +14,10 @@ export function setOvenTemperature (temperature) {
 // Create EmptyIngredientError here and export it
 
 export function checkIngredientFreshness (ingredientName, shelfLife) {
-  if (typeof ingredientName !== 'string') {
-  }
-  if (!Number.isInteger(shelfLife)) {
-  }
-  if (ingredientName.trim() === '') {
-  }
-  return `${ingredientName} is fresh and usable`
+    if (typeof ingredientName !== 'string') throw new TypeError('Ingredient name must be a string')
+    if (!Number.isInteger(shelfLife)) throw new TypeError('Shelf life must be an integer')
+    if (ingredientName.trim() === '') throw new EmptyIngredientError('EmptyIngredientError', 'Ingredient name cannot be empty')
+    return `${ingredientName} is fresh and usable`    
 }
 
 
@@ -33,12 +29,9 @@ const menu = {
 }
 
 export function addDishToMenu (dishName, price) {
-  if (typeof dishName !== 'string' || dishName.trim() === '') {
-  }
-  if (typeof price !== 'number' || price < 0) {
-  }
-  if (dishName in menu) {
-  }
+  if (typeof dishName !== 'string' || dishName.trim() === '') throw new TypeError('Invalid dish name')
+  if (typeof price !== 'number' || price < 0) throw new TypeError('Invalid price')
+  if (dishName in menu) throw new Error('Dish already exists in the menu')
   menu[dishName] = price
   return `${dishName} has been added to the menu`
 }
