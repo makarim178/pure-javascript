@@ -8,3 +8,5 @@ const wizard = {
     'frostNova'
   ]
 }
+
+export default { wizard }

@@ -1,6 +1,6 @@
 // 4. Dynamic Spellbook
 
-const fireSpells = {
+export const fireSpells = {
   'inferno': '🔥🔥🔥 Inferno!',
   'flameThrower': '🔥💨 Flame Thrower!'
 }

@@ -1,6 +1,6 @@
 // 4. Dynamic Spellbook
 
-const iceSpells = {
+export const iceSpells = {
   'blizzard': '❄️❄️❄️ Blizzard!',
   'iceWall': '🧊🧊 Ice Wall!'
 }
