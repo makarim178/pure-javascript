@@ -4,7 +4,12 @@
 // 1. Star Counter
 
 export function createStarCounter (initialValue) {
-
+  let value = initialValue
+  return {
+    increment: () => value++,
+    decrement: () => value--,
+    getValue: () => value
+  }
 }
 
 const starCounter = createStarCounter(3)
@@ -28,7 +33,7 @@ for (let i = 0; i < starCount; i++) {
 // 2. Cosmic Signal Broadcaster
 const signalBroadcaster = document.querySelector('#signalBroadcaster')
 export function broadcastSignals () {
-  for (var i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 5; i++) {
     setTimeout(() => {
       signalBroadcaster.classList.add(`signal-${i}`)
       if (i > 1) {
@@ -54,8 +59,23 @@ function createItem (container, count) {
 }
 
 export function createCosmicAdjuster (initialState) {
-
+  let value = { ...initialState }
+  return {
+    'addRockets': function(n){
+      createItem(rockets, n + value.rockets)
+      return this
+    },
+    'addPlanets': function(n){
+      createItem(planets, n + value.planets)
+      return this
+    },
+    'addAirships': function(n){
+      createItem(airships, n + value.airships)
+      return this
+    }
+  }
 }
+
 
 const adjuster = createCosmicAdjuster({ 'rockets': 1,
   'planets': 2,
